@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.contrib.auth import get_user_model
-"""
+
+
 class CustomUser(AbstractUser):
 
     username   = models.CharField(max_length = 250, primary_key = True)
@@ -15,7 +16,7 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = ['email',]
 
     def __str__(self):
-        return self.username"""
+        return self.username
 
 class City(models.Model):
     name = models.CharField(max_length = 100, null = True)

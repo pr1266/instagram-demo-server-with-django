@@ -7,7 +7,7 @@ SECRET_KEY = '0(pse5%kik)_(n^4!4kn9ii&!p2%u#-p=l(2n6nd+k@fh$qf&)'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'test1.CustomUser'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
