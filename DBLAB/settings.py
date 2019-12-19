@@ -11,7 +11,7 @@ ALLOWED_HOSTS = []
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'naja',
+        'NAME': 'dblab',
         'USER': 'postgres',
         'PASSWORD': '021021021021',
         'HOST': 'localhost',

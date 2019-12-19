@@ -18,23 +18,39 @@ class CustomUser(AbstractUser):
         return self.username"""
 
 class City(models.Model):
-    pass 
+    name = models.CharField(max_length = 100, null = True)
+
+    def __str__(self):
+        return self.name 
 
 class Address(models.Model):
-    pass
+    address     = models.CharField(max_length = 300, null = True)
+    postal_code = models.CharField(max_length = 10, null = True) 
+    city        = models.ForeignKey(City, on_delete = models.CASCADE)
 
-class Customer(models.Model):
-    pass
+    def __str__(self):
+
+        return self.city.name + ' ' + self.address
 
 class Platform(models.Model):
-    pass
+    name = models.CharField(max_length = 30, null = True)
 
+    def __str__(self):
+        return self.name
 
 class G_Category(models.Model):
-    pass
+    c_name = models.CharField(max_length = 30)
+
+    def __str__(self):
+        return self.c_name
 
 class Game(models.Model):
-    pass
+    name    = models.CharField(max_length = 100)
+    describ = models.TextField()
+    gameCat = models.ForeignKey(G_Category, on_delete = models.CASCADE)
+    gamePlt = models.ForeignKey(Platform, on_delete = models.CASCADE)
+    price   = models.IntegerField(default = 0)
+    picture = models.ImageField(upload_to = 'pic_folder/')
 
 class GameOrder(models.Model):
     pass
