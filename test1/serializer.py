@@ -37,3 +37,45 @@ class GameCategorySerializer(ModelSerializer):
     class Meta:
         model  = G_CATEGORY 
         fields = '__all__'
+
+class GameSerializer(ModelSerializer):
+
+    class Meta:
+        model  = Game
+        fields = '__all__'
+
+class GameOrderSerializer(ModelSerializer):
+
+    class Meta:
+        model  = GameOrder 
+        fields = '__all__'
+
+class GameDeliverySerializer(ModelSerializer):
+
+    class Meta:
+        model  = GameDelivery 
+        fields = '__all__'
+
+class AccessoryCategorySerializer(ModelSerializer):
+
+    class Meta:
+        model  = A_CATEGORY 
+        fields = '__all__'
+
+class AccessorySerializer(ModelSerializer):
+
+    class Meta:
+        model  = Accessory
+        fields = '__all__'
+
+class AccessoryOrderSerializer(ModelSerializer):
+
+    class Meta:
+        model  = AccessoryOrder
+        fields = '__all__'
+
+class AccessoryDeliverySerializer(ModelSerializer):
+
+    class Meta:
+        model  = AccessoryDelivery
+        fields = '__all__'
