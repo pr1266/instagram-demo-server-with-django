@@ -83,11 +83,34 @@ class GameDelivery(models.Model):
 
         return str(self.id)
 
+class A_Category(models.Model):
+
+    name = models.CharField(max_length = 100, null = True)
+
+    def __str__(self):
+
+        return self.name
+
 class Accessory(models.Model):
-    pass
+    name         = models.CharField(max_length = 100)
+    describ      = models.TextField()
+    accessoryCat = models.ForeignKey(A_Category, on_delete = models.CASCADE)
+    accessoryPlt = models.ForeignKey(Platform, on_delete = models.CASCADE)
+    price        = models.IntegerField(default = 0)
+    picture      = models.ImageField(upload_to = 'pic_folder/')
+
+    def __str__(self):
+
+        return self.name + ' ' + self.accessoryPlt.name
 
 class AccessoryOrder(models.Model):
-    pass
+    customer        = models.ForeignKey(Customer, on_delete = models.CASCADE)
+    accessoryEntity = models.ForeignKey(Accessory, on_delete = models.CASCADE)
+
+    def __str__(self):
+
+        return str(self.id) 
 
 class AccessoryDelivery(models.Model):
-    pass
+    order   = models.ForeignKey(AccessoryOrder, on_delete = models.CASCADE)
+    address = models.ForeignKey(Address, on_delete = models.CASCADE)
