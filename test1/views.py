@@ -25,6 +25,8 @@ import datetime
 import time
 import json
 
+#! Game :
+
 class GameListAPIView(ListAPIView):
 
     queryset = Game.objects.all()
@@ -32,21 +34,17 @@ class GameListAPIView(ListAPIView):
     #def get_queryset()
     permission_classes = [IsAuthenticated]
 
-    search_fields = ['first_name' , 'last_name' , 'father_name' , 'nat_code' , 'address__address']
+    search_fields = ['name' , 'gamePlt__name' , 'gameCat__name']
 
     def get_queryset(self , *args , **kwargs):
-        #queryset_list = super(GameListAPIView , self).get_queryset(*args , **kwargs)
         queryset_list = Game.objects.all()
         query = self.request.GET.get('q')
         if query:
             queryset_list = queryset_list.filter(
-            Q(first_name__icontains = query)|
-            Q(last_name__icontains = query)|
-            Q(father_name__icontains = query)|
-            #Q(address__address_id__icontains = query)|
-            #Q(school__id__icontains = query)|
-            Q(nat_code__icontains = query)
-            #Q(theory_class__id = query)
+            Q(name__icontains = query)|
+            Q(id__icontains = query)|
+            Q(gamePlt__name__icontains = query)|
+            Q(gameCat__name__icontains = query)
             ).distinct()
 
         return queryset_list
@@ -55,9 +53,9 @@ class GameDetailAPIView(RetrieveAPIView):
 
     queryset = Game.objects.all()
     serializer_class =  GameSerializer
-    lookup_field = 'nat_code'
-    lookup_url_kwarg = 'nat_code'
-    permission_classes = [IsOwnerOrReadOnly , IsAuthenticated]
+    lookup_field = 'id'
+    lookup_url_kwarg = 'id'
+    permission_classes = [IsAuthenticated,]
 
 class GameUpdateAPIView(UpdateAPIView):
 
@@ -65,8 +63,7 @@ class GameUpdateAPIView(UpdateAPIView):
     serializer_class =  GameCreateSerializer
     lookup_field = 'nat_code'
     lookup_url_kwarg = 'nat_code'
-    permission_classes = [IsOwnerOrReadOnly]
-
+    permission_classes = []
     def perform_update(self , serializer):
 
         serializer.save(user = self.request.user)
@@ -78,10 +75,56 @@ class GameDeleteAPIView(DestroyAPIView):
     lookup_field = 'nat_code'
     lookup_url_kwarg = 'nat_code'
     #def get_queryset()
-    permission_classes = [IsOwnerOrReadOnly , IsAuthenticated]
+    permission_classes = [IsAuthenticated,]
 
 class GameCreateAPIView(CreateAPIView):
 
     queryset = Game.objects.all()
     serializer_class = GameCreateSerializer
-    permission_classes = [IsOwnerOrReadOnly , IsAuthenticated]
+    permission_classes = [IsAuthenticated,]
+
+#! accessories :
+class ClassListAPIView(ListAPIView):
+
+    queryset = Theory_class.objects.all()
+    serializer_class = ClassSerializer
+    permission_classes = [IsAuthenticated]
+    search_fields = ['id' , 'teacher' , 'school']
+
+class AccessoryDetailAPIView(RetrieveAPIView):
+
+    queryset = Accessory.objects.all()
+    serializer_class = AccessorySerializer
+    permission_classes = [IsAuthenticated,]
+    search_fields = ['id' , 'name' , 'accessoryCat__name', 'accessoryPlt_name']
+    lookup_field = 'id'
+    lookup_url_kwarg = 'id'
+
+class AccessoryCreateAPIView(CreateAPIView):
+
+    queryset = Accessory.objects.all()
+    serializer_class = AccessorySerializer
+    permission_classes = [IsAuthenticated,]
+
+class AccessoryDeleteAPIView(DestroyAPIView):
+
+    queryset = Accessory.objects.all()
+    serializer_class = AccessorySerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'id'
+    permission_classes = [IsAuthenticated,]
+
+    def delete(self , request , id):
+
+        obj = Accessory.objects.get(pk = id)
+        obj.delete()
+        print("salam")
+        return Response(status = HTTP_200_OK)
+
+class AccessoryUpdateAPIView(UpdateAPIView):
+
+    queryset = Accessory.objects.all()
+    serializer_class = AccessorySerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'id'
+    permission_classes = [IsAuthenticated,]
