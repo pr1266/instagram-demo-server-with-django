@@ -32,6 +32,17 @@ class Address(models.Model):
 
         return self.city.name + ' ' + self.address
 
+class Customer(models.Model):
+
+    first_name = models.CharField(max_length = 100, null = True)
+    last_name  = models.CharField(max_length = 100, null = True)
+    nat_code   = models.CharField(max_length = 100, null = True)
+    #account    = models.OneToOneField(CustomUser)
+
+    def __str__(self):
+
+        return self.first_name + ' ' + self.last_name
+
 class Platform(models.Model):
     name = models.CharField(max_length = 30, null = True)
 
@@ -52,11 +63,25 @@ class Game(models.Model):
     price   = models.IntegerField(default = 0)
     picture = models.ImageField(upload_to = 'pic_folder/')
 
+    def __str__(self):
+
+        return self.name + ' ' + self.gamePlt.name
+
 class GameOrder(models.Model):
-    pass
+    customer   = models.ForeignKey(Customer, on_delete = models.CASCADE)
+    gameEntity = models.ForeignKey(Game, on_delete = models.CASCADE)
+
+    def __str__(self):
+
+        return str(self.id) 
 
 class GameDelivery(models.Model):
-    pass
+    order   = models.ForeignKey(GameOrder, on_delete = models.CASCADE)
+    address = models.ForeignKey(Address, on_delete = models.CASCADE)
+
+    def __str__(self):
+
+        return str(self.id)
 
 class Accessory(models.Model):
     pass
