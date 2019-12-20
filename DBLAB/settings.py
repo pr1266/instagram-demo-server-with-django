@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0(pse5%kik)_(n^4!4kn9ii&!p2%u#-p=l(2n6nd+k@fh$qf&)'
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['10.0.2.2', '127.0.0.1']
 AUTH_USER_MODEL = 'test1.CustomUser'
 DATABASES = {
     'default': {

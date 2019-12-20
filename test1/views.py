@@ -31,7 +31,6 @@ class GameListAPIView(ListAPIView):
 
     queryset = Game.objects.all()
     serializer_class = GameSerializer
-    #def get_queryset()
     permission_classes = [IsAuthenticated]
 
     search_fields = ['name' , 'gamePlt__name' , 'gameCat__name']
@@ -60,7 +59,7 @@ class GameDetailAPIView(RetrieveAPIView):
 class GameUpdateAPIView(UpdateAPIView):
 
     queryset = Game.objects.all()
-    serializer_class =  GameCreateSerializer
+    serializer_class =  GameSerializer
     lookup_field = 'nat_code'
     lookup_url_kwarg = 'nat_code'
     permission_classes = []
@@ -80,16 +79,16 @@ class GameDeleteAPIView(DestroyAPIView):
 class GameCreateAPIView(CreateAPIView):
 
     queryset = Game.objects.all()
-    serializer_class = GameCreateSerializer
+    serializer_class = GameSerializer
     permission_classes = [IsAuthenticated,]
 
 #! accessories :
-class ClassListAPIView(ListAPIView):
+# class ClassListAPIView(ListAPIView):
 
-    queryset = Theory_class.objects.all()
-    serializer_class = ClassSerializer
-    permission_classes = [IsAuthenticated]
-    search_fields = ['id' , 'teacher' , 'school']
+#     queryset = Theory_class.objects.all()
+#     serializer_class = ClassSerializer
+#     permission_classes = [IsAuthenticated]
+#     search_fields = ['id' , 'teacher' , 'school']
 
 class AccessoryDetailAPIView(RetrieveAPIView):
 

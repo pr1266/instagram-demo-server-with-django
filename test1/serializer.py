@@ -35,7 +35,7 @@ class PlatformSerializer(ModelSerializer):
 class GameCategorySerializer(ModelSerializer):
 
     class Meta:
-        model  = G_CATEGORY 
+        model  = G_Category
         fields = '__all__'
 
 class GameSerializer(ModelSerializer):
@@ -59,7 +59,7 @@ class GameDeliverySerializer(ModelSerializer):
 class AccessoryCategorySerializer(ModelSerializer):
 
     class Meta:
-        model  = A_CATEGORY 
+        model  = A_Category 
         fields = '__all__'
 
 class AccessorySerializer(ModelSerializer):
