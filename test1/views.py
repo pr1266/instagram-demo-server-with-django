@@ -33,7 +33,7 @@ class GameListAPIView(ListAPIView):
     serializer_class = GameSerializer
     permission_classes = [IsAuthenticated]
 
-    search_fields = ['name' , 'gamePlt__name' , 'gameCat__name']
+    search_fields = '__all__'
 
     def get_queryset(self , *args , **kwargs):
         queryset_list = Game.objects.all()
@@ -127,3 +127,15 @@ class AccessoryUpdateAPIView(UpdateAPIView):
     lookup_field = 'id'
     lookup_url_kwarg = 'id'
     permission_classes = [IsAuthenticated,]
+
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def GetPltGames(request):
+
+    plt = request.data['plt']
+    obj = Game.objects.filter(gamePlt__name = plt)
+
+    ser_obj = GameSerializer(obj, many = True)
+
+    return Response(ser_obj.data)
