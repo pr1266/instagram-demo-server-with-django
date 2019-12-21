@@ -3,6 +3,7 @@ import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = '0(pse5%kik)_(n^4!4kn9ii&!p2%u#-p=l(2n6nd+k@fh$qf&)'
 DEBUG = True
 
@@ -106,3 +107,6 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 STATIC_URL = '/static/'
+#MEDIA
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/media/'

@@ -43,6 +43,7 @@ class GameSerializer(ModelSerializer):
     class Meta:
         model  = Game
         fields = '__all__'
+        depth = 1
 
 class GameOrderSerializer(ModelSerializer):
 
