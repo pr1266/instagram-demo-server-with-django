@@ -129,12 +129,25 @@ class AccessoryUpdateAPIView(UpdateAPIView):
     permission_classes = [IsAuthenticated,]
 
 
+#! get games by platform
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def GetPltGames(request):
 
     plt = request.data['plt']
     obj = Game.objects.filter(gamePlt__name = plt)
+
+    ser_obj = GameSerializer(obj, many = True)
+
+    return Response(ser_obj.data)
+
+#! games by category
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def GetCatGames(request):
+
+    plt = request.data['plt']
+    obj = Game.objects.filter(gameCat__name = plt)
 
     ser_obj = GameSerializer(obj, many = True)
 

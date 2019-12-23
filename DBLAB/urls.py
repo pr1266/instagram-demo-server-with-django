@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'game/(?P<id>[\w-]+)/$', views.GameDetailAPIView.as_view()),
     url(r'^api-token-auth/', obtain_jwt_token),
     url('pltGame/', views.GetPltGames),
+    url('catGame/', views.GetCatGames),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
