@@ -177,6 +177,62 @@ class GameOrderCreateAPIView(CreateAPIView):
     serializer_class = GameOrderSerializer
     permission_classes = [IsAuthenticated,]
 
+#! GAME DELIVERY :
+
+class GameDeliveryListAPIView(ListAPIView):
+
+    queryset = GameDelivery.objects.all()
+    serializer_class = GameDeliverySerializer
+    permission_classes = [IsAuthenticated]
+
+    search_fields = '__all__'
+
+    def get_queryset(self , *args , **kwargs):
+        queryset_list = GameDelivery.objects.all()
+        query = self.request.GET.get('q')
+        if query:
+            queryset_list = queryset_list.filter(
+            Q(name__icontains = query)|
+            Q(id__icontains = query)|
+            Q(gamePlt__name__icontains = query)|
+            Q(gameCat__name__icontains = query)
+            ).distinct()
+
+        return queryset_list
+
+class GameDeliveryDetailAPIView(RetrieveAPIView):
+
+    queryset = GameDelivery.objects.all()
+    serializer_class =  GameDeliverySerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'id'
+    permission_classes = [IsAuthenticated,]
+
+class GameDeliveryUpdateAPIView(UpdateAPIView):
+
+    queryset = GameDelivery.objects.all()
+    serializer_class =  GameDeliverySerializer
+    lookup_field = 'nat_code'
+    lookup_url_kwarg = 'nat_code'
+    permission_classes = []
+    def perform_update(self , serializer):
+
+        serializer.save(user = self.request.user)
+
+class GameDeliveryDeleteAPIView(DestroyAPIView):
+
+    queryset = GameDelivery.objects.all()
+    serializer_class =  GameDeliverySerializer
+    lookup_field = 'nat_code'
+    lookup_url_kwarg = 'nat_code'
+    permission_classes = [IsAuthenticated,]
+
+class GameDeliveryCreateAPIView(CreateAPIView):
+
+    queryset = GameDelivery.objects.all()
+    serializer_class = GameDeliverySerializer
+    permission_classes = [IsAuthenticated,]
+
 #! GAMES : 
 #! get games by platform
 @api_view(['POST'])

@@ -14,6 +14,9 @@ urlpatterns = [
     #! GAME ORDER
     url(r'gameorder/$', views.GameOrderListAPIView.as_view()),
     url(r'gameorder/(?P<id>[\w-]+)/$', views.GameOrderDetailAPIView.as_view()),
+    #! GAME DELIVERY
+    url(r'gamedelivery/$', views.GameDeliveryListAPIView.as_view()),
+    url(r'gamedelivery/(?P<id>[\w-]+)/$', views.GameDeliveryDetailAPIView.as_view()),
     #! TOKEN
     url(r'^api-token-auth/', obtain_jwt_token),
     # VIEWS : 
