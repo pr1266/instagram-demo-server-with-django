@@ -13,6 +13,8 @@ urlpatterns = [
     url(r'^api-token-auth/', obtain_jwt_token),
     url('pltGame/', views.GetPltGames),
     url('catGame/', views.GetCatGames),
+    url('pltAcc/', views.GetPltAccessories),
+    url('catAcc/', views.GetCatAccessories),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

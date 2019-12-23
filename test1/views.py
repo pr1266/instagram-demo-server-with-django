@@ -128,7 +128,7 @@ class AccessoryUpdateAPIView(UpdateAPIView):
     lookup_url_kwarg = 'id'
     permission_classes = [IsAuthenticated,]
 
-
+#! GAMES : 
 #! get games by platform
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
@@ -150,5 +150,31 @@ def GetCatGames(request):
     obj = Game.objects.filter(gameCat__name = plt)
 
     ser_obj = GameSerializer(obj, many = True)
+
+    return Response(ser_obj.data)
+
+#! get games by platform
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def GetPltAccessories(request):
+
+    plt = request.data['plt']
+    obj = Accessory.objects.filter(accessoryPlt__name = plt)
+
+    ser_obj = AccessorySerializer(obj, many = True)
+
+    return Response(ser_obj.data)
+
+
+#! ACCESSORIES
+#! accessory by category
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def GetCatAccessories(request):
+
+    plt = request.data['plt']
+    obj = Accessory.objects.filter(gameCat__name = plt)
+
+    ser_obj = AccessorySerializer(obj, many = True)
 
     return Response(ser_obj.data)
