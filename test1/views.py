@@ -83,12 +83,6 @@ class GameCreateAPIView(CreateAPIView):
     permission_classes = [IsAuthenticated,]
 
 #! accessories :
-# class ClassListAPIView(ListAPIView):
-
-#     queryset = Theory_class.objects.all()
-#     serializer_class = ClassSerializer
-#     permission_classes = [IsAuthenticated]
-#     search_fields = ['id' , 'teacher' , 'school']
 
 class AccessoryDetailAPIView(RetrieveAPIView):
 
@@ -126,6 +120,61 @@ class AccessoryUpdateAPIView(UpdateAPIView):
     serializer_class = AccessorySerializer
     lookup_field = 'id'
     lookup_url_kwarg = 'id'
+    permission_classes = [IsAuthenticated,]
+
+#! GAME ORDERS :
+class GameOrderListAPIView(ListAPIView):
+
+    queryset = GameOrder.objects.all()
+    serializer_class = GameOrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    search_fields = '__all__'
+
+    def get_queryset(self , *args , **kwargs):
+        queryset_list = GameOrder.objects.all()
+        query = self.request.GET.get('q')
+        if query:
+            queryset_list = queryset_list.filter(
+            Q(name__icontains = query)|
+            Q(id__icontains = query)|
+            Q(gamePlt__name__icontains = query)|
+            Q(gameCat__name__icontains = query)
+            ).distinct()
+
+        return queryset_list
+
+class GameOrderDetailAPIView(RetrieveAPIView):
+
+    queryset = GameOrder.objects.all()
+    serializer_class =  GameOrderSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'id'
+    permission_classes = [IsAuthenticated,]
+
+class GameOrderUpdateAPIView(UpdateAPIView):
+
+    queryset = GameOrder.objects.all()
+    serializer_class =  GameOrderSerializer
+    lookup_field = 'nat_code'
+    lookup_url_kwarg = 'nat_code'
+    permission_classes = []
+    def perform_update(self , serializer):
+
+        serializer.save(user = self.request.user)
+
+class GameOrderDeleteAPIView(DestroyAPIView):
+
+    queryset = GameOrder.objects.all()
+    serializer_class =  GameOrderSerializer
+    lookup_field = 'nat_code'
+    lookup_url_kwarg = 'nat_code'
+    permission_classes = [IsAuthenticated,]
+
+class GameOrderCreateAPIView(CreateAPIView):
+
+    queryset = GameOrder.objects.all()
+    serializer_class = GameOrderSerializer
     permission_classes = [IsAuthenticated,]
 
 #! GAMES : 
@@ -178,3 +227,11 @@ def GetCatAccessories(request):
     ser_obj = AccessorySerializer(obj, many = True)
 
     return Response(ser_obj.data)
+
+
+
+#! GAME ORDERS : 
+
+
+
+#! GAME DELIVERIES :
